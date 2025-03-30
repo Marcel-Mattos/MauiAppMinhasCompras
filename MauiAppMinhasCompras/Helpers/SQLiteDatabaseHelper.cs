@@ -1,4 +1,6 @@
-﻿using MauiAppMinhasCompras.Models;
+﻿
+
+using MauiAppMinhasCompras.Models;
 using SQLite;
 
 namespace MauiAppMinhasCompras.Helpers
@@ -19,10 +21,10 @@ namespace MauiAppMinhasCompras.Helpers
         
         public Task<List<Produto>> Update(Produto p) //atualizar
         {
-            string sql = "UPDATE Produto SET Descricao=?, Quantidade=?, Preco=? WHERE Id=?";
+            string sql = "UPDATE Produto SET Categoria=?, Descricao=?, Quantidade=?, Preco=? WHERE Id=?";
 
             return _conn.QueryAsync<Produto>(
-                sql, p.Descricao, p.Quantidade, p.Preco, p.Id
+                sql, p.Categoria, p.Descricao, p.Quantidade, p.Preco, p.Id
              );
         }
 
@@ -42,5 +44,13 @@ namespace MauiAppMinhasCompras.Helpers
             return _conn.QueryAsync<Produto>(sql);
 
         }
+        public Task<List<Produto>> Searchcategoria(string q) //busca na tabela para categoria
+        {
+            string sql = "SELECT * FROM Produto WHERE categoria LIKE '%"+ q +"%' ";
+
+            return _conn.QueryAsync<Produto>(sql);
+
+        }
+
     }
 }
